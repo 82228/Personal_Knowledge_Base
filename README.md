@@ -16,7 +16,6 @@ main分支 ➡ docs文件 ➡ golang文件 ➡ 包含以下六个知识模块：
 - 计算机网络
 
 每个模块点进去即可查看具体知识点，均以 Markdown格式 呈现。
-![Uploading image.png…]()
 
 
 ③ 仓库进行程度
