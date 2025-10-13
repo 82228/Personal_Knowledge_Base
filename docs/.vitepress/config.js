@@ -1,9 +1,9 @@
 
 export default {
-   base : '/blog-demo/',
-   styles: ['/styles/custom.css?v=1'],
+  base: '/Personal_Knowledge_Base/', // 必须前后都带斜杠
+   styles: ['/blog-demo/styles/custom.css?v=1'],
    head: [
-    ["link", { rel: "icon", href: "/boke.ico" }],
+    ["link", { rel: "icon", href: "/blog-demo/boke.ico" }],
   ],
   title: '是乐茵lin的知识库',
   description: '是乐茵lin用来写知识的地方',
