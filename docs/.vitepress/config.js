@@ -1,9 +1,9 @@
 
 export default {
    base : '/blog-demo/',
-   styles: ['/blog-demo/styles/custom.css?v=1'],
+   styles: ['/styles/custom.css?v=1'],
    head: [
-    ["link", { rel: "icon", href: "/my-blog/boke.ico" }],
+    ["link", { rel: "icon", href: "/boke.ico" }],
   ],
   title: '是乐茵lin的知识库',
   description: '是乐茵lin用来写知识的地方',
