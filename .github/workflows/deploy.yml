@@ -7,7 +7,8 @@ on:
   pull_request:
     branches: [main]
 
-  # 支持手动在工作流上触发 workflow_dispatch:
+  # 支持手动在工作流上触发
+  workflow_dispatch:
 
 # 设置时区
 env:
@@ -22,18 +23,19 @@ permissions:
   # 允许写入 id-token 的权限。
   id-token: write
 
-# 并发控制
+# 并发控制配置
 concurrency:
   group: pages
   cancel-in-progress: false
 
-# 定义任务
+# 定义执行任务
 jobs:
   # 构建任务
   build:
+
     runs-on: ubuntu-latest
 
-    # node 运行版本
+    # node v20 运行
     strategy:
       matrix:
         node-version: [20]
@@ -43,34 +45,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          # 保留 Git 信息
           fetch-depth: 0
 
-      # 设置 Node.js 版本
+      # 设置使用 Node.js 版本
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      # 安装 pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
+      # 使用 最新的 PNPM
+      # 你也可以指定为具体的版本
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          # version: 9
+          run_install: false
 
-      # 安装依赖
+        # 安装依赖
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 构建项目
-      - name: Build project
-        run: pnpm build
+        # 构建项目
+      - name: Build blog project
+        run: |
+          echo ${{ github.workspace }}
+          pnpm build
 
-      # 资源拷贝
+        # 资源拷贝
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs/.vitepress/dist
           destination: ./_site
 
-      # 上传 _site 的资源，用于后续部署
+        # 上传 _site 的资源，用于后续部署
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
@@ -85,6 +95,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site  # 确保这个路径与上传的构建输出路径一致

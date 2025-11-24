@@ -4,9 +4,9 @@
   "description": "是乐茵lin的知识库",
   "main": "index.js",
   "scripts": {
-    "dev": "npx vitepress dev",
-    "build": "npx vitepress build",
-    "preview": "npx vitepress preview",
+   "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
     "docs:dev": "npx vitepress dev",
     "docs:build": "npx vitepress build",
     "docs:preview": "npx vitepress preview"
